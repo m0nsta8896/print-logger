@@ -113,3 +113,9 @@ The logger automatically registers an atexit handler to close files safely. Howe
 ```python
 print.shutdown()
 ```
+
+## Installation
+You can install this package the following command:
+```bash
+pip install git+https://github.com/m0nsta8896/print-logger.git
+```
