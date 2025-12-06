@@ -35,6 +35,14 @@ config = Config(
 
 # 2. Create the Logger
 print = Print(config)
+
+# Note: To make this custom logger (Print) the default 'print' function
+# throughout your entire project (across multiple files), you can overwrite
+# the builtins.print function instead:
+# ------------------------------
+# import builtins
+# builtins.print = Print(config)
+# ------------------------------
 ```
 ### 2. Usage
 
