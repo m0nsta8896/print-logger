@@ -115,7 +115,7 @@ print.shutdown()
 ```
 
 ## Installation
-You can install this package the following command:
+You can install this package with the following command:
 ```bash
 pip install git+https://github.com/m0nsta8896/print-logger.git
 ```
