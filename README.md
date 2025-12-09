@@ -8,7 +8,7 @@ This utility provides a highly configurable, "drop-in" replacement for the Pytho
 
 * **Drop-in Replacement**: Use `print()` exactly as you always have. No syntax changes required.
 * **Rich Configuration**: Customize file encodings, buffering, log directory, timestamps, and more.
-* **Log Levels**: Includes built-in methods for `print.success()`, `print.warning()`, `print.error()`, `print.debug()`, and `print.critical()`.
+* **Log Levels**: Includes built-in methods for `print.info`, `print.success()`, `print.warning()`, `print.error()`, `print.debug()`, and `print.critical()`.
 * **ANSI Colors**: Automatic color-coded output for the console (fully customizable).
 * **Smart Formatting**: Intelligently handles partial line writes (`end=""`) and ensures timestamps are only applied to fresh lines.
 * **Stderr Capture**: Automatically hooks into `sys.stderr` to log uncaught exceptions and tracebacks to the file without disrupting console error reporting.
