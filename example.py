@@ -3,6 +3,8 @@ import builtins
 from printlogger import Config, Print
 
 builtins.print = Print(Config(
+    logs_dir="logs",
+    timezone=pytz.timezone("America/New_York"),
     filename_fmt = "%B_%d-%y.log",
     
     tag_info = "[i]",
