@@ -70,7 +70,7 @@ print.debug("Variable state:", {"x": 10, "y": 20})
 
 The following illustrates the expected console output, showing the timestamp, log level tag, and message. Note how the line writes (end="...") are correctly handled, and the traceback from the simulated crash is captured and logged.
 
-```bash
+```log
 [13:56:09] [i] System initializing...
 [13:56:09] [i] Loading modules...Done!
 [13:56:09] [i] Connecting to database...
