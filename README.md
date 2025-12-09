@@ -26,11 +26,10 @@ from printlogger import Config, Print
 
 # 1. Define Configuration
 config = Config(
-    app_name="MyBot",
     logs_dir="logs",
-    retention_days=30,
     timezone=pytz.timezone("America/New_York"),
-    use_console_colors=True
+    filename_fmt = "%B_%d-%y.log",
+    retention_days=30
 )
 
 # 2. Create the Logger
