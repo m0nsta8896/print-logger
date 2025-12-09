@@ -1,6 +1,6 @@
-# Print Logger
+# Custom Logger
 
-Version: `2.0.0`
+Version: `2.1.0`
 
 This utility provides a highly configurable, "drop-in" replacement for the Python `print` function. It enables robust, dual-destination logging (console + file) with automatic daily rotation, retention policies, and thread-safe operations. It is designed for production environments where simple `print` debugging is insufficient, but full-scale logging frameworks are overkill.
 
@@ -55,6 +55,7 @@ print("Loading modules", end="...")
 print("Done!")  # Appends to the same line in file/console
 
 # Specific Log Levels
+print.info("Connecting to database...")
 print.success("Database connected successfully.")
 print.warning("High latency detected:", "450ms")
 print.error("Connection dropped.")
@@ -65,6 +66,26 @@ print.debug("Variable state:", {"x": 10, "y": 20})
 1 / 0
 ```
 
+### Expected output
+
+The following illustrates the expected console output, showing the timestamp, log level tag, and message. Note how the line writes (end="...") are correctly handled, and the traceback from the simulated crash is captured and logged.
+
+```bash
+[13:56:09] [i] System initializing...
+[13:56:09] [i] Loading modules...Done!
+[13:56:09] [i] Connecting to database...
+[13:56:09] [s] Database connected successfully.
+[13:56:09] [w] High latency detected: 450ms
+[13:56:09] [e] Connection dropped.
+[13:56:09] [c] System Failure! Shutting down.
+[13:56:09] [d] Variable state: {'x': 10, 'y': 20}
+[13:56:09] [e] Traceback (most recent call last):
+[13:56:09] [e]   File "/storage/emulated/0/Projects/Logger/2.1.0/example.py", line 41, in <module>
+[13:56:09] [e]     1 / 0
+[13:56:09] [e]     ~~^~~
+[13:56:09] [e] ZeroDivisionError: division by zero
+```
+
 ## Configuration Reference
 
 The Config class accepts the following parameters:
@@ -72,7 +93,6 @@ The Config class accepts the following parameters:
 Parameter            | Type     | Default            | Description                                                             |
 :------------------- | :------- | :----------------- | :---------------------------------------------------------------------- |
 CORE SETTINGS        |          |                    |                                                                         |
-app_name             | str      | "Application"      | Name used for internal identification.                                  |
 logs_dir             | str      | "logs"             | Directory path where log files will be stored. Created automatically.   |
 timezone             | timezone | UTC                | The timezone used for file rotation and line timestamps.                |
 retention_days       | int      | 7                  | Log files older than this will be deleted on startup.                   |
@@ -99,31 +119,37 @@ tag_critical         | str      | "[CRIT]"           | Tag prefixed to print.cri
 ## Advanced Customization
 
 ### Changing Colors
+
 You can modify the ANSI color codes by passing a dictionary to the colors parameter in Config.
 
 ```python
 config = Config(
     colors={
-        "info": "\033[37m",     # White
-        "error": "\033[91m",    # Light Red
-        "success": "\033[92m",  # Light Green
-        "warning": "\033[93m",  # Light Yellow
-        "debug": "\033[90m",    # Dark Gray
-        "critical": "\033[41m", # Red Background
-        "reset": "\033[0m"      # Reset
+        "normal": "\033[37m",           # White/Light Gray foreground color
+        "info": "\033[34m",             # Blue foreground color
+        "error": "\033[31m",            # Red foreground color
+        "warning": "\033[33m",          # Yellow foreground color
+        "success": "\033[32m",          # Green foreground color
+        "debug": "\033[36m",            # Cyan foreground color
+        "critical": "\033[41m\033[37m", # White/Light Gray foreground on Red background
+        "reset": "\033[0m"              # Reset all formatting/colors to default
     }
     # All your other configurations...
 )
 ```
 
 ### Shutdown
+
 The logger automatically registers an atexit handler to close files safely. However, if you need to manually shut it down (e.g., during a restart sequence), you can call:
+
 ```python
 print.shutdown()
 ```
 
 ## Installation
-You can install this package with the following command:
+
+You can install this package the following command:
+
 ```bash
 pip install git+https://github.com/m0nsta8896/print-logger.git
 ```
